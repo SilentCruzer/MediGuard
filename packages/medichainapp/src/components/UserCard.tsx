@@ -11,7 +11,7 @@ type Props = {
 }
 
 const UserCard = ({ className }: Props) => {
-  const userName = useAppSelector((state) => state.main.userName)
+  const userName = useAppSelector((state) => state.main.walletAddress)
 
   return (
     <CardBox className={className}>

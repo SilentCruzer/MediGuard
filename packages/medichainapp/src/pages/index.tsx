@@ -8,7 +8,7 @@ import {
   mdiReload,
 } from '@mdi/js'
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import type { ReactElement } from 'react'
 import BaseButton from '../components/BaseButton'
 import LayoutAuthenticated from '../layouts/Authenticated'
@@ -26,6 +26,8 @@ import ChartLineSample from '../components/ChartLineSample'
 import NotificationBar from '../components/NotificationBar'
 import TableSampleClients from '../components/TableSampleClients'
 import { getPageTitle } from '../config'
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router'
 
 const Dashboard = () => {
   const { clients } = useSampleClients()
@@ -34,6 +36,15 @@ const Dashboard = () => {
   const clientsListed = clients.slice(0, 4)
 
   const [chartData, setChartData] = useState(sampleChartData())
+  const getWalletAddress = (state) => state.main.walletAddress;
+  const walletAddress = useSelector(getWalletAddress);
+  const router = useRouter();
+  
+  useEffect(() => {
+    if (walletAddress == undefined)
+      router.push('/login')
+  }, [])
+  
 
   const fillChartData = (e: React.MouseEvent) => {
     e.preventDefault()

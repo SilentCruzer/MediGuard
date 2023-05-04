@@ -29,6 +29,7 @@ export default function NavBar({ menu, className = '', children }: Props) {
           <NavBarItemPlain onClick={handleMenuNavBarToggleClick}>
             <BaseIcon path={isMenuNavBarActive ? mdiClose : mdiDotsVertical} size="24" />
           </NavBarItemPlain>
+          
         </div>
         <div
           className={`${

@@ -4,5 +4,14 @@
   "packageManager": "yarn@3.5.1",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "medichainapp": "yarn workspace medichainapp dev",
+    "medichainapp:build": "yarn workspace medichainapp build",
+    "medichainapp:start": "yarn workspace medichainapp start",
+    "medichainapp:lint": "yarn workspace medichainapp lint",
+    "medichainapp:test": "yarn workspace medichainapp test",
+    "medichainapp:test:ci": "yarn workspace medichainapp test:ci",
+    "medichainapp:cypress": "yarn workspace medichainapp cypress"
+  }
 }

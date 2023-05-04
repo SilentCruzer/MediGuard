@@ -26,7 +26,7 @@ import { getPageTitle } from '../config'
 import { useAppSelector } from '../stores/hooks'
 
 const ProfilePage = () => {
-  const userName = useAppSelector((state) => state.main.userName)
+  const userName = useAppSelector((state) => state.main.walletAddress)
   const userEmail = useAppSelector((state) => state.main.userEmail)
 
   const userForm: UserForm = {

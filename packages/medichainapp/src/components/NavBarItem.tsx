@@ -23,7 +23,7 @@ export default function NavBarItem({ item }: Props) {
   const navBarItemLabelStyle = useAppSelector((state) => state.style.navBarItemLabelStyle)
   const navBarItemLabelHoverStyle = useAppSelector((state) => state.style.navBarItemLabelHoverStyle)
 
-  const userName = useAppSelector((state) => state.main.userName)
+  const userName = useAppSelector((state) => state.main.walletAddress)
 
   const [isDropdownActive, setIsDropdownActive] = useState(false)
 
