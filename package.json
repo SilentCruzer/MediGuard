@@ -6,6 +6,7 @@
     "packages/*"
   ],
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "medichainapp": "yarn workspace medichainapp dev",
     "medichainapp:build": "yarn workspace medichainapp build",
     "medichainapp:start": "yarn workspace medichainapp start",
@@ -13,5 +14,8 @@
     "medichainapp:test": "yarn workspace medichainapp test",
     "medichainapp:test:ci": "yarn workspace medichainapp test:ci",
     "medichainapp:cypress": "yarn workspace medichainapp cypress"
+  },
+  "devDependencies": {
+    "turbo" : "^1.9.3"
   }
 }

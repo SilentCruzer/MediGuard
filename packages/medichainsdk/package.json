@@ -3,13 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@ceramicnetwork/http-client": "^2.22.0",
+    "@ceramicnetwork/stream-tile": "^2.21.0",
+    "@datamodels/identity-profile-basic": "^0.2.0",
+    "@glazed/devtools": "^0.2.0",
     "autoprefixer": "10.4.14",
+    "dids": "^4.0.1",
+    "key-did-provider-ed25519": "^3.0.1",
+    "key-did-resolver": "^3.0.0",
+    "lit-ceramic-sdk": "^1.1.13",
     "next": "13.3.4",
     "postcss": "8.4.23",
     "react": "18.2.0",
