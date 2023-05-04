@@ -30,7 +30,36 @@ const EditorBlock = ({ data, onChange, holder }: Props) => {
       const editor = new EditorJS({
         holder: holder,
         tools: EDITOR_TOOLS,
-        data,
+        data: {
+          time: 1552744582955,
+          blocks: [
+            {
+              type: "paragraph",
+              data: {
+                text: "Name: "
+              }
+            },
+            {
+              type: "paragraph",
+              data: {
+                text: "DOB: "
+              }
+            },
+            {
+              type: "paragraph",
+              data: {
+                text: "Family History: "
+              }
+            },
+            {
+              type: "paragraph",
+              data: {
+                text: "Diagnosis: "
+              }
+            }
+          ],
+          version: "2.11.10"
+        },
         async onChange(api, event) {
           const data = await api.saver.save();
           onChange(data);
