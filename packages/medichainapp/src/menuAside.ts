@@ -21,13 +21,13 @@ const menuAside: MenuAsideItem[] = [
     label: 'Dashboard',
   },
   {
-    href: '/tables',
-    label: 'Tables',
+    href: '/records',
+    label: 'Records',
     icon: mdiTable,
   },
   {
-    href: '/forms',
-    label: 'Forms',
+    href: '/prescriptions',
+    label: 'Prescriptions',
     icon: mdiSquareEditOutline,
   },
   {
@@ -36,8 +36,8 @@ const menuAside: MenuAsideItem[] = [
     icon: mdiTelevisionGuide,
   },
   {
-    href: '/responsive',
-    label: 'Responsive',
+    href: '/upload',
+    label: 'Upload',
     icon: mdiResponsive,
   },
   {

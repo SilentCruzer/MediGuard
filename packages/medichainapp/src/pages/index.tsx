@@ -4,6 +4,7 @@ import {
   mdiChartPie,
   mdiChartTimelineVariant,
   mdiGithub,
+  mdiBriefcase,
   mdiMonitorCellphone,
   mdiReload,
 } from '@mdi/js'
@@ -28,6 +29,7 @@ import TableSampleClients from '../components/TableSampleClients'
 import { getPageTitle } from '../config'
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router'
+import UserCard from '../components/UserCard'
 
 const Dashboard = () => {
   const { clients } = useSampleClients()
@@ -59,50 +61,39 @@ const Dashboard = () => {
       </Head>
       <SectionMain>
         <SectionTitleLineWithButton icon={mdiChartTimelineVariant} title="Overview" main>
-          <BaseButton
-            href="https://github.com/justboil/admin-one-react-tailwind"
-            target="_blank"
-            icon={mdiGithub}
-            label="Star on GitHub"
-            color="contrast"
-            roundedFull
-            small
-          />
         </SectionTitleLineWithButton>
+        <UserCard className="mb-6" />
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
           <CardBoxWidget
-            trendLabel="12%"
+            trendLabel=""
             trendType="up"
             trendColor="success"
             icon={mdiAccountMultiple}
             iconColor="success"
-            number={512}
-            label="Clients"
+            number={12}
+            label="Records Shared"
           />
           <CardBoxWidget
-            trendLabel="16%"
+            trendLabel=""
             trendType="down"
             trendColor="danger"
-            icon={mdiCartOutline}
+            icon={mdiBriefcase}
             iconColor="info"
-            number={7770}
-            numberPrefix="$"
-            label="Sales"
+            number={10}
+            label="Documents"
           />
           <CardBoxWidget
-            trendLabel="Overflow"
             trendType="warning"
             trendColor="warning"
             icon={mdiChartTimelineVariant}
             iconColor="danger"
-            number={256}
-            numberSuffix="%"
-            label="Performance"
+            number={13}
+            label="Prescriptions"
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <div className="flex flex-col justify-between">
             {transactions.map((transaction: Transaction) => (
               <CardBoxTransaction key={transaction.id} transaction={transaction} />
@@ -113,11 +104,7 @@ const Dashboard = () => {
               <CardBoxClient key={client.id} client={client} />
             ))}
           </div>
-        </div>
-
-        <div className="my-6">
-          <SectionBannerStarOnGitHub />
-        </div>
+        </div> */}
 
         <SectionTitleLineWithButton icon={mdiChartPie} title="Trends overview">
           <BaseButton icon={mdiReload} color="whiteDark" onClick={fillChartData} />
