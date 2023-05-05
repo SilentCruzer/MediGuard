@@ -13,3 +13,4 @@ type CreatePatientProfile @createModel (accountRelation:SINGLE , description:"Ba
     health_profile:BasicHealthProfile!
 }
 
+

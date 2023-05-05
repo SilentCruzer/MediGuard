@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Basic Patient Profile",
+  "description": "Public patient profile",
+  "type": "object",
+  "properties": {
+    "dob": {
+      "type": "string",
+      "title": "issuanceDate",
+      "maxLength": 30
+    },
+    "gender": {
+      "type": "string",
+      "format": "date-time",
+      "title": "dateUpdated",
+      "maxLength": 30
+    },
+    "height": {
+      "type": "string",
+      "format": "date-time",
+      "title": "dateUpdated",
+      "maxLength": 30
+    },
+    "weight": {
+      "type": "string",
+      "format": "date-time",
+      "title": "dateUpdated",
+      "maxLength": 30
+    }
+  }
+}
+
