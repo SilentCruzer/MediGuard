@@ -7,6 +7,8 @@ import FormField from '../components/FormField'
 import { mdiAccount } from '@mdi/js'
 import SectionTitleLineWithButton from '../components/SectionTitleLineWithButton'
 import axios from 'axios'
+import { ethers } from 'ethers';
+import { useSelector } from 'react-redux';
 
 const noAuthError =
   'The access control condition check failed! You should have at least 0 ETH to decrypt this file.'
@@ -20,14 +22,15 @@ function UploadRecord() {
   const [toDecrypt, setToDecrypt] = useState(null)
   const [address, setAddress] = useState('')
 
-  const selectFile = (e) => {
+
+  const selectFile = async (e) => {
     setFile(e.target.files[0])
     setEncryptedFile(null)
     setEncryptedSymmetricKey(null)
     setFileSize(0)
 
-    encryptFile()
-    sendFileToIPFS()
+    await encryptFile()
+    await sendFileToIPFS()
   }
 
   const setTarget = (e) => {
@@ -54,6 +57,7 @@ function UploadRecord() {
           .then(function (response) {
             const ImgHash = `https://ipfs.io/ipfs/${response.data.IpfsHash}`
             console.log(ImgHash)
+            setURL(ImgHash);
           })
           .catch(function (error) {
             console.log(error)
@@ -77,6 +81,29 @@ function UploadRecord() {
     setFileSize(0)
   }
 
+  const updateContract = async () => {
+    if(typeof window !== undefined){
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const contractAddress = '0x134b91f7B5c25259B6151a4E68F6679c68A6B217';
+    const contractInstance = new ethers.Contract(contractAddress, ContractAbi, provider);
+    console.log("sdasd")
+    console.log(url)
+    if(url != ""){
+      console.log("sdasd")
+
+      try {
+      const signer = provider.getSigner();
+      const transaction = await contractInstance.connect(signer).addFile(url, encryptedSymmetricKey, address, signer._address);
+      console.log(transaction);
+    } catch (error) {
+      console.error(error);
+    }
+    console.log(url, encryptedSymmetricKey)
+    }
+    }
+    
+  }
+
   const decryptFile = async () => {
     if (encryptedFile === null) {
       alert('Please encrypt your file first!')
@@ -86,15 +113,6 @@ function UploadRecord() {
     // https://ipfs.io/ipfs/QmRw7b7ZW9vAjLjKkbMsYGmfDu8dZkVfjgvKxVQnR8ZCUz
 
     try {
-      axios({
-        url: url, //your url
-        method: 'GET',
-        responseType: 'blob', // important
-      }).then((response) => {
-        // create file link in browser's memory
-        const href = response.data
-        setToDecrypt(href)
-      })
       const decrypted = await lit.decryptFile(encryptedFile, encryptedSymmetricKey, address)
       const blob = new Blob([decrypted])
       const urldown = URL.createObjectURL(blob)
@@ -103,11 +121,19 @@ function UploadRecord() {
       link.download = 'decrypted_file.txt' // set the desired file name
       document.body.appendChild(link)
       link.click()
-      setFileSize(decrypted.byteLength)
     } catch (error) {
       console.log(error)
       alert('You are not authorized to access')
     }
+  }
+
+  const downloadFile = () => {
+    const url = window.URL.createObjectURL(encryptedFile);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'encrypted_file.txt');
+    document.body.appendChild(link);
+    link.click();
   }
 
   return (
@@ -119,7 +145,7 @@ function UploadRecord() {
       ></SectionTitleLineWithButton>
       <CardBox className="mb-6">
         <div></div>
-        <FormField label="Give access to" help="Max 500kb">
+        <FormField label="Give access to" >
           <input type="text" onChange={setTarget} />
         </FormField>
         <FormField label="Choose Files" help="Max 500kb">
@@ -127,16 +153,15 @@ function UploadRecord() {
         </FormField>
       </CardBox>
       <div>
-        <button onClick={encryptFile}>Encrypt</button>
-        <button onClick={decryptFile}>Decrypt</button>
+        <button onClick={updateContract} className="px-5 py-2 border">Encrypt</button>
       </div>
       {encryptedFile !== null && fileSize === 0 && (
-        <h3>File Encrypted: {file.name}. and uploaded successfully</h3>
-      )}
-      {fileSize > 0 && (
-        <h3>
-          File Decrypted: {file.name} of {fileSize} bytes
-        </h3>
+        <div>
+          <h3>File Encrypted: {file.name}. and uploaded successfully</h3>
+          <h3>Symetric key: {encryptedSymmetricKey}</h3>
+          <button onClick={downloadFile}>Download encrypted file</button>
+        </div>
+        
       )}
     </div>
   )
@@ -145,5 +170,106 @@ function UploadRecord() {
 UploadRecord.getLayout = function getLayout(page: ReactElement) {
   return <LayoutAuthenticated>{page}</LayoutAuthenticated>
 }
+
+export const ContractAbi = [
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_ipfsHash",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_symmetricKey",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_authorizedAddress",
+				"type": "address"
+			}
+		],
+		"name": "addFile",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_fileId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_ipfsHash",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_symmetricKey",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_authorizedAddress",
+				"type": "address"
+			}
+		],
+		"name": "updateFile",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_fileId",
+				"type": "uint256"
+			}
+		],
+		"name": "getFile",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getUserFiles",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
 
 export default UploadRecord

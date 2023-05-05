@@ -80,7 +80,7 @@ const Dashboard = () => {
             trendColor="danger"
             icon={mdiBriefcase}
             iconColor="info"
-            number={10}
+            number={18}
             label="Documents"
           />
           <CardBoxWidget
@@ -113,10 +113,6 @@ const Dashboard = () => {
         <CardBox className="mb-6">{chartData && <ChartLineSample data={chartData} />}</CardBox>
 
         <SectionTitleLineWithButton icon={mdiAccountMultiple} title="Clients" />
-
-        <NotificationBar color="info" icon={mdiMonitorCellphone}>
-          <b>Responsive table.</b> Collapses on mobile
-        </NotificationBar>
 
         <CardBox hasTable>
           <TableSampleClients />

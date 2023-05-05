@@ -1,4 +1,5 @@
 import { mdiEye, mdiTrashCan } from '@mdi/js'
+import Link from 'next/link'
 import React, { useState } from 'react'
 import { useSampleClients } from '../hooks/sampleData'
 import { Client } from '../interfaces'
@@ -89,12 +90,12 @@ const TableSampleClients = () => {
               </td>
               <td className="before:hidden lg:w-1 whitespace-nowrap">
                 <BaseButtons type="justify-start lg:justify-end" noWrap>
-                  <BaseButton
+                  <Link href={client.login} target="_blank"><BaseButton
                     color="info"
                     icon={mdiEye}
-                    onClick={() => setIsModalInfoActive(true)}
                     small
-                  />
+                  /></Link>
+                  
                   <BaseButton
                     color="danger"
                     icon={mdiTrashCan}

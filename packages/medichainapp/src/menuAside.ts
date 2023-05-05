@@ -31,58 +31,19 @@ const menuAside: MenuAsideItem[] = [
     icon: mdiSquareEditOutline,
   },
   {
-    href: '/ui',
-    label: 'UI',
-    icon: mdiTelevisionGuide,
-  },
-  {
     href: '/upload',
     label: 'Upload',
     icon: mdiResponsive,
   },
   {
-    href: '/',
-    label: 'Styles',
-    icon: mdiPalette,
+    href: '/decrypt',
+    label: 'Decrypt',
+    icon: mdiTable,
   },
   {
     href: '/profile',
     label: 'Profile',
     icon: mdiAccountCircle,
-  },
-  {
-    href: '/login',
-    label: 'Login',
-    icon: mdiLock,
-  },
-  {
-    href: '/error',
-    label: 'Error',
-    icon: mdiAlertCircle,
-  },
-  {
-    label: 'Dropdown',
-    icon: mdiViewList,
-    menu: [
-      {
-        label: 'Item One',
-      },
-      {
-        label: 'Item Two',
-      },
-    ],
-  },
-  {
-    href: 'https://github.com/justboil/admin-one-react-tailwind',
-    label: 'GitHub',
-    icon: mdiGithub,
-    target: '_blank',
-  },
-  {
-    href: 'https://github.com/justboil/admin-one-vue-tailwind',
-    label: 'Vue version',
-    icon: mdiVuejs,
-    target: '_blank',
   },
 ]
 

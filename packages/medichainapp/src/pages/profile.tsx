@@ -6,9 +6,11 @@ import {
   mdiMail,
   mdiUpload,
 } from '@mdi/js'
+import { QRCode } from 'react-qr-svg'
 import { Formik, Form, Field } from 'formik'
 import Head from 'next/head'
 import type { ReactElement } from 'react'
+import {useState } from 'react'
 import BaseButton from '../components/BaseButton'
 import BaseButtons from '../components/BaseButtons'
 import BaseDivider from '../components/BaseDivider'
@@ -28,10 +30,49 @@ import { useAppSelector } from '../stores/hooks'
 const ProfilePage = () => {
   const userName = useAppSelector((state) => state.main.walletAddress)
   const userEmail = useAppSelector((state) => state.main.userEmail)
+  const [kyc, setKyc] = useState(false);
 
   const userForm: UserForm = {
     name: userName,
     email: userEmail,
+  }
+
+  const deployedContractAddress = "0x57b2203d27788448f07F56F670850067C1009CfD";
+
+
+  const qrProofRequestJson = {
+    id: 'c811849d-6bfb-4d85-936e-3d9759c7f105',
+    typ: 'application/iden3comm-plain-json',
+    type: 'https://iden3-communication.io/proofs/1.0/contract-invoke-request',
+    body: {
+      transaction_data: {
+        contract_address: deployedContractAddress,
+        method_id: 'b68967e2',
+        chain_id: 80001,
+        network: 'polygon-mumbai',
+      },
+      reason: 'airdrop participation',
+      scope: [
+        {
+          id: 1,
+          circuit_id: 'credentialAtomicQuerySig',
+          rules: {
+            query: {
+              allowed_issuers: ['*'],
+              req: {
+                isAbove18: {
+                  $eq: 1,
+                },
+              },
+              schema: {
+                url: 'd7a2c837ce6028f5744223ecc24bfca0',
+                type: 'isAbove18',
+              },
+            },
+          },
+        },
+      ],
+    },
   }
 
   return (
@@ -41,26 +82,26 @@ const ProfilePage = () => {
       </Head>
 
       <SectionMain>
-        <SectionTitleLineWithButton icon={mdiAccount} title="Profile" main>
-          <BaseButton
-            href="https://github.com/justboil/admin-one-react-tailwind"
-            target="_blank"
-            icon={mdiGithub}
-            label="Star on GitHub"
-            color="contrast"
-            roundedFull
-            small
-          />
-        </SectionTitleLineWithButton>
+        <SectionTitleLineWithButton
+          icon={mdiAccount}
+          title="Profile"
+          main
+        ></SectionTitleLineWithButton>
 
         <UserCard className="mb-6" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="flex flex-col">
             <CardBox className="mb-6">
-              <FormField label="Avatar" help="Max 500kb">
-                <FormFilePicker label="Upload" color="info" icon={mdiUpload} />
+                <FormField label="KYC Verification" help="Max 500kb">
+                <FormFilePicker label="Upload" color="info" icon={mdiUpload} setKyc={setKyc}/>
               </FormField>
+              {kyc ? <QRCode
+                    level="Q"
+                    style={{ width: 256 }}
+                    value={JSON.stringify(qrProofRequestJson)}
+                  /> : <></>}
+              
             </CardBox>
 
             <CardBox className="flex-1" hasComponentLayout>

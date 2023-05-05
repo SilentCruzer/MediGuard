@@ -8,13 +8,15 @@ type Props = {
   accept?: string
   color: ColorButtonKey
   isRoundIcon?: boolean
+  setKyc?: any
 }
 
-const FormFilePicker = ({ label, icon, accept, color, isRoundIcon }: Props) => {
+const FormFilePicker = ({ label, icon, accept, color, isRoundIcon, setKyc }: Props) => {
   const [file, setFile] = useState(null)
 
   const handleFileChange = (event) => {
     setFile(event.currentTarget.files[0])
+    setKyc(true);
   }
 
   const showFilename = !isRoundIcon && file
