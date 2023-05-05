@@ -1,0 +1,73 @@
+type BasicHealthProfile @CreateModel(accountRelation:SINGLE , description:"") {
+    dateOfBirth: String!
+    gender: String!
+    height: Float!
+    weight: Float!
+    bloodType: String!
+    #identifier: DID!
+}
+
+enum Actors {
+    DOCTOR
+    NURSE
+    PATIENT
+    INSURANCE
+    PHARMA
+}
+
+type CreatePatientProfile @CreateModel (accountRelation:SINGLE , description:"Basic KYC(zk-proof) verified patient") {
+    displayName: String!
+    #    @string(minLength: 3, maxLength: 50)
+    health_profile:BasicHealthProfile!
+}
+
+type MedicalHistoryInput {
+    surgeries: [String!]!
+    medications: [String!]!
+    allergies: [String!]!
+}
+
+type PatientProtectedHealthProfile @CreateModel(accountRelation:SINGLE , description:""){
+    Medicalhistory: MedicalHistoryInput!
+}
+
+type CompleteHealthProfile {
+    basicprofile : BasicHealthProfile!
+    protectedprofile: PatientProtectedHealthProfile!
+}
+
+type DoctorProfilePublic @createModel(accountRelation: SINGLE, description: "Direct message model") {
+    doctorName: String!
+    specialty: String!
+    hospital: String!
+    address: String!
+    phone: String!
+    walletAddress:String!
+}
+
+type DoctorProfilePrivate @createModel(accountRelation: LIST, description: "Direct message model") {
+    patients: DID! @accountReference
+}
+
+type DoctorCompleteProfile @createModel(accountRelation: SINGLE, description: "Direct message model") {
+
+}
+
+
+type ViewedByTuple {
+    walletAddress: String
+    timestamp: timetz
+
+}
+
+type ViewedByHistory {
+    history:[ViewedByTuple]
+}
+
+
+
+
+
+
+
+

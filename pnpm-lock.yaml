@@ -87,6 +87,7 @@ importers:
       '@ceramicnetwork/stream-tile': ^2.21.0
       '@datamodels/identity-profile-basic': ^0.2.0
       '@glazed/devtools': ^0.2.0
+      '@glazed/did-datastore': ^0.3.2
       autoprefixer: 10.4.14
       dids: ^4.0.1
       key-did-provider-ed25519: ^3.0.1
@@ -102,6 +103,7 @@ importers:
       '@ceramicnetwork/stream-tile': 2.21.0
       '@datamodels/identity-profile-basic': 0.2.0
       '@glazed/devtools': 0.2.0
+      '@glazed/did-datastore': 0.3.2
       autoprefixer: 10.4.14_postcss@8.4.23
       dids: 4.0.1
       key-did-provider-ed25519: 3.0.1
@@ -2036,6 +2038,15 @@ packages:
     engines: {node: '>=14.14'}
     dev: false
 
+  /@glazed/datamodel/0.3.1:
+    resolution: {integrity: sha512-UBd+z9yoHZkFDXKOE3VmnUPdkE0ERla+3jU8Q09jo4pCQPwzk/IvMlLNlRfIqUbGuoYkz8pZkdcuTB012yS/dw==}
+    engines: {node: '>=14.14'}
+    dependencies:
+      '@glazed/tile-loader': 0.2.1
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /@glazed/devtools/0.2.0:
     resolution: {integrity: sha512-oSIFWl8sn639jJLLTjQB/OduaElL+7zLD7F4QvOyYZSO32SJqsDqKu2q/BP+JpaMUxFpy0UyOUUMFTKjzb95mA==}
     engines: {node: '>=14.14'}
@@ -2058,6 +2069,28 @@ packages:
   /@glazed/did-datastore-model/0.2.0:
     resolution: {integrity: sha512-S8K1sexfb8k8TEKX4yKcHj1HTW9PRZ7AJZsU6FiW/ibasaEtQoxvAoihLmqk7T4UA+vNjkHvjfYKoxdd8LfgAg==}
     engines: {node: '>=14.14'}
+    dev: false
+
+  /@glazed/did-datastore/0.3.2:
+    resolution: {integrity: sha512-/sNasgFF1bvUFIc4KVIihPzD+Zo2kr/uJ8cZHU1U+rRVsCL1AeYcx/bF27OaaMvxfDlJ9nXMmiaPl5kwnyzviQ==}
+    engines: {node: '>=14.14'}
+    dependencies:
+      '@ceramicnetwork/streamid': 2.14.0
+      '@glazed/constants': 0.2.0
+      '@glazed/datamodel': 0.3.1
+      '@glazed/tile-loader': 0.2.1
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
+  /@glazed/tile-loader/0.2.1:
+    resolution: {integrity: sha512-opICtDY1OIhIYJD8UVTO8BdNDMGD+Ui4MPA1JifpVeUWAO97PtgsXZ1irLLab5l5zDiakmajoiWZxv2PbVGTlA==}
+    engines: {node: '>=14.14'}
+    dependencies:
+      '@ceramicnetwork/stream-tile': 2.21.0
+      dataloader: 2.2.2
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /@glazed/types/0.2.0:
@@ -7309,6 +7342,10 @@ packages:
   /data-uri-to-buffer/4.0.1:
     resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
     engines: {node: '>= 12'}
+    dev: false
+
+  /dataloader/2.2.2:
+    resolution: {integrity: sha512-8YnDaaf7N3k/q5HnTJVuzSyLETjoZjVmHc4AeKAzOvKHEFQKcn64OKBfzHYtE9zGjctNM7V9I0MfnUVLpi7M5g==}
     dev: false
 
   /date-fns/2.30.0:

@@ -1,0 +1,15 @@
+type BasicHealthProfile {
+    dateOfBirth: String! @string(minLength: 10, maxLength: 30)
+    gender: String! @string(minLength: 1, maxLength: 30)
+    height: Float!
+    weight: Float!
+    bloodType: String! @string(minLength: 1, maxLength: 30)
+    #identifier: DID!
+}
+
+type CreatePatientProfile @createModel (accountRelation:SINGLE , description:"Basic KYC(zk-proof) verified patient") {
+    displayName: String! @string(minLength: 10, maxLength: 30)
+    #    @string(minLength: 3, maxLength: 50)
+    health_profile:BasicHealthProfile!
+}
+
