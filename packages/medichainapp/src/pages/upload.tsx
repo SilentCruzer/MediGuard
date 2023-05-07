@@ -49,9 +49,9 @@ function UploadRecord() {
           .post(urlIpfs, formData, {
             headers: {
               'Content-Type': `multipart/form-data;boundary=${formData._boundary}}`,
-              pinata_api_key: 'e1d4fbf71ed9d47027a5',
+              pinata_api_key: '',
               pinata_secret_api_key:
-                '837d0a40d0f5e7b3eed06a5fdd324a48d7a32a2dad9fe780b4d377c47a571f3a',
+                '',
             },
           })
           .then(function (response) {
